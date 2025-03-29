@@ -58,11 +58,21 @@ This guide assumes you have the extension code extracted in a folder on your com
 *   **Click Icon:** Click the extension's icon in the Chrome toolbar.
 *   **Check Popup:** A small popup window should appear. It will likely show:
     `❌ Disabled on: aistudio.google.com`
+    
+![image](https://github.com/user-attachments/assets/0809af30-f516-4efe-a709-5eaa758b0efd)
+
+
 *   **Enable:** Click the green **"Enable on This Site"** button within the popup.
 *   **Grant Permission:** Chrome will likely show a permission prompt asking if you want to allow the extension to "Read and change your data on aistudio.google.com". Click **"Allow"**.
+
+![image](https://github.com/user-attachments/assets/7e67453f-7265-4292-a850-d1dee4227a4b)
+
 *   **Verify Popup:** The popup should refresh and now show:
     `✅ Enabled on: aistudio.google.com`
     The "Disable on This Site" button should now be visible.
+
+![image](https://github.com/user-attachments/assets/257e499a-c7f3-4126-8192-99006bd7ba26)
+
 
 **4. Using the extension:**
 

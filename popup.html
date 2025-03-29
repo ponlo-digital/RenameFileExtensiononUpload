@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rename Extension Status</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 14px;
+            padding: 15px;
+            min-width: 250px;
+            text-align: center;
+        }
+        #status {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        #siteUrl {
+            font-style: italic;
+            word-wrap: break-word;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        button {
+            padding: 8px 12px;
+            font-size: 1em;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box; /* Include padding in width */
+        }
+        #enableButton {
+             background-color: #4CAF50;
+             color: white;
+             border: none;
+        }
+         #disableButton {
+             background-color: #f44336;
+             color: white;
+             border: none;
+             margin-top: 5px; /* Space if both buttons somehow show */
+         }
+        .hidden {
+            display: none;
+        }
+        /* --- NEW --- Style for the options link */
+        #optionsLink {
+            display: block; /* Make it take its own line */
+            margin-top: 15px; /* Space above the link */
+            font-size: 0.9em;
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #optionsLink:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="status">Checking status...</div>
+    <div id="siteUrl"></div>
+    <button id="enableButton" class="hidden">Enable on This Site</button>
+    <button id="disableButton" class="hidden">Disable on This Site</button>
+
+    <!-- === ADDED OPTIONS LINK === -->
+    <a href="#" id="optionsLink">Configure Options</a>
+    <!-- ========================== -->
+
+    <script src="popup.js"></script>
+</body>
+</html>

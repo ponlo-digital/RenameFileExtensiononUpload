@@ -1,8 +1,8 @@
-Websites Acting Picky About File Types? Fight Back with the Auto TXT Renamer! ✊
+Websites Acting Picky About File Types? Fight Back with the Rename File Extension on Upload extension! ✊
 
 You crafted the perfect code (.js, .ts), tweaked that config (.yaml, .cfg), or saved essential logs (.log), but NOOOO! The website throws a digital tantrum: "ONLY .TXT FILES ALLOWED!" 😩
 
-Don't let stubborn upload forms dictate your file life! Auto TXT Renamer is your sneaky sidekick. It intercepts those files right before they leave your browser and whispers sweet .txt nothings into their names. ✨ Poof! ✨ The website is none the wiser, and your upload sails through.
+Don't let stubborn upload forms dictate your file life! Rename File Extension on Upload is your sneaky sidekick. It intercepts those files right before they leave your browser and whispers sweet .txt nothings into their names. ✨ Poof! ✨ The website is none the wiser, and your upload sails through.
 
 How the Magic Happens:
 

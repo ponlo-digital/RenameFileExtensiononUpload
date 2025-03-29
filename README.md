@@ -82,6 +82,9 @@ This guide assumes you have the extension code extracted in a folder on your com
 *   **Observe:**
     *   The file *should* be accepted by the website as if it were a `.txt` file.
     *   Check the website's UI – if it displays the filename after selection, it should show the `.txt` version (e.g., `mycode.txt`).
+ 
+![image](https://github.com/user-attachments/assets/531f3cea-a6af-46d7-ac4a-c11fc587287f)
+
 
 **5. Verify and Troubleshoot (If Needed):**
 

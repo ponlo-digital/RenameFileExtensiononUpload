@@ -42,7 +42,7 @@ This guide assumes you have the extension code extracted in a folder on your com
 *   **Load the Extension:**
     *   Click the **"Load unpacked"** button that appears (usually top-left).
     *   A file browser dialog will open. Navigate to and select the **FOLDER** that contains your extension's files (the one with `manifest.json`, `content.js`, `popup.html`, `options.html`, etc.). **Do NOT select an individual file.** Click "Select Folder".
-*   **Confirm Installation:** The extension ("Rename File Extension on Upload (OptPerm)" or similar name) should now appear in your list of extensions. You should also see its icon in your Chrome toolbar (you might need to click the puzzle piece icon 🧩 to find and pin it). If you see errors here, double-check your `manifest.json`.
+*   **Confirm Installation:** The extension ("Rename File Extension on Upload") should now appear in your list of extensions. You should also see its icon in your Chrome toolbar (you might need to click the puzzle piece icon 🧩 to find and pin it). If you see errors here, double-check your `manifest.json`.
 
 **2. Configure Initial Settings:**
 

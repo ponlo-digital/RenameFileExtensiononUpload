@@ -23,3 +23,6 @@ Awesome Perks:
 🚀 "Rename EVERYTHING" Mode: Feeling bold? A toggle lets you slap a .txt ending on any file you upload (use with gusto, or caution!).
 
 👀 Manage Permissions: Easily see and revoke access for sites in the Options page.
+
+
+![image](https://github.com/user-attachments/assets/6ba2ee65-5085-4f25-9cb7-203f18354011)

@@ -1,64 +1,73 @@
 // == options.js (Option 2 - Updated for Live Reload) ==
 
+// Función para guardar la configuración
 function saveOptions() {
-    // Only save extensions and the renameAll toggle
-    const extensionsInput = document.getElementById('extensions').value;
-    const forceRenameAll = document.getElementById('renameAllFiles').checked;
-
-    const extensionsToSave = extensionsInput
-        .split(/[\n,]+/)
-        .map(ext => ext.trim().toLowerCase())
-        .filter(ext => ext.length > 0);
-
-    // Get current saved values to compare (optional, but good practice)
-    chrome.storage.sync.get(['extensionsToRename', 'forceRenameAll'], (oldItems) => {
-        const oldExtString = (oldItems.extensionsToRename || []).join(',');
-        const newExtString = extensionsToSave.join(',');
-        const oldForceRename = oldItems.forceRenameAll || false;
-
-        // Only save and notify if something actually changed
-        if (oldExtString !== newExtString || oldForceRename !== forceRenameAll) {
-            chrome.storage.sync.set(
-                {
-                    extensionsToRename: extensionsToSave,
-                    forceRenameAll: forceRenameAll
-                },
-                () => {
-                    if (chrome.runtime.lastError) {
-                        handleError(`Error saving settings: ${chrome.runtime.lastError.message}`);
-                        return;
-                    }
-                    updateStatus('Options saved.', 'green', 1500);
-                    // --- NEW: Send Message to Content Scripts ---
-                    chrome.tabs.query({}, (tabs) => { // Query all tabs
-                         if (chrome.runtime.lastError) {
-                            console.warn("Could not query tabs to send update message:", chrome.runtime.lastError.message);
-                            return;
-                         }
-                        tabs.forEach(tab => {
-                            if (tab.id) {
-                                chrome.tabs.sendMessage(tab.id, { type: "SETTINGS_UPDATED" }, (response) => {
-                                     // Check response or lastError to see if the content script received it
-                                    if (chrome.runtime.lastError) {
-                                        // This often means the content script isn't injected in that tab (which is fine)
-                                        // console.log(`Tab ${tab.id} did not receive message (likely inactive): ${chrome.runtime.lastError.message}`);
-                                    } else if(response && response.status === "received") {
-                                        // console.log(`Tab ${tab.id} confirmed receipt.`); // Optional log
-                                    }
-                                });
-                            }
-                        });
-                        console.log("Sent SETTINGS_UPDATED message to potential content scripts.");
-                    });
-                    // -----------------------------------------
-                }
-            );
-        } else {
-            updateStatus('No changes detected.', 'gray', 1500);
+    // Obtener el texto del área de mapeo de extensiones
+    const mappingText = document.getElementById('extensionMapping').value.trim();
+    
+    // Analizar el texto para crear un objeto de mapeo
+    const extensionMap = {};
+    
+    // Dividir por líneas o comas
+    const entries = mappingText.split(/[\n,]+/).filter(entry => entry.trim() !== '');
+    
+    entries.forEach(entry => {
+      // Formato esperado: "origen:destino" (por ejemplo "ejs:ejs.html")
+      const parts = entry.split(':');
+      if (parts.length === 2) {
+        const source = parts[0].trim().replace(/^\./, ''); // Eliminar punto inicial si existe
+        const target = parts[1].trim();
+        if (source && target) {
+          extensionMap[source] = target;
         }
+      }
     });
-}
+    
+    // Obtener el valor de "Rename ALL"
+    const renameAll = document.getElementById('renameAll').checked;
+    
+    // Obtener el valor de la extensión predeterminada (para el modo "Rename ALL")
+    const defaultExtension = document.getElementById('defaultExtension').value.trim() || 'txt';
+    
+    // Guardar en chrome.storage
+    chrome.storage.sync.set({
+      extensionMap: extensionMap,
+      renameAll: renameAll,
+      defaultExtension: defaultExtension
+    }, function() {
+      // Actualizar estado
+      const status = document.getElementById('status');
+      status.textContent = 'Settings saved.';
+      setTimeout(function() {
+        status.textContent = '';
+      }, 1500);
+      
+      // Recargar la lista de sitios habilitados
+      loadEnabledSites();
+    });
+  }
 
+// Función para cargar la configuración guardada
+function loadOptions() {
+    chrome.storage.sync.get({
+      extensionMap: {},
+      renameAll: false,
+      defaultExtension: 'txt'
+    }, function(items) {
+      // Convertir el objeto de mapeo a texto
+      const mappingText = Object.entries(items.extensionMap)
+        .map(([source, target]) => `${source}:${target}`)
+        .join('\n');
+      
+      document.getElementById('extensionMapping').value = mappingText;
+      document.getElementById('renameAll').checked = items.renameAll;
+      document.getElementById('defaultExtension').value = items.defaultExtension;
+      
+      // Cargar la lista de sitios habilitados
+      loadEnabledSites();
+    });
+  }
+  
 // (restoreOptions, displayEnabledSites, handleRemoveSiteClick, updateStatus, handleError remain the same)
 // --- Enabled Sites Display & Removal ---
 function displayEnabledSites() { const listElement = document.getElementById('enabledSitesList'); listElement.innerHTML = '<li class="no-sites-enabled">Loading enabled sites...</li>'; chrome.permissions.getAll((permissions) => { if (chrome.runtime.lastError) { handleError("Error fetching permissions!"); listElement.innerHTML = '<li class="no-sites-enabled">Error loading sites.</li>'; return; } const origins = permissions.origins || []; const specificOrigins = origins.filter(origin => !origin.includes('<all_urls>')); listElement.innerHTML = ''; if (specificOrigins.length === 0) { listElement.innerHTML = '<li class="no-sites-enabled">No specific sites currently enabled via popup.</li>'; return; } specificOrigins.forEach(originPattern => { const listItem = document.createElement('li'); listItem.className = 'enabled-site-item'; const hostnameSpan = document.createElement('span'); hostnameSpan.className = 'site-hostname'; try { let displayHost = originPattern; if (originPattern.includes('://')) { displayHost = originPattern.split('://')[1].split('/')[0]; } hostnameSpan.textContent = displayHost; } catch(e) { hostnameSpan.textContent = originPattern; } const removeButton = document.createElement('button'); removeButton.className = 'remove-site-btn'; removeButton.textContent = 'X'; removeButton.title = `Revoke permission for ${originPattern}`; removeButton.dataset.origin = originPattern; listItem.appendChild(hostnameSpan); listItem.appendChild(removeButton); listElement.appendChild(listItem); }); }); }

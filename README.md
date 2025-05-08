@@ -1,99 +1,72 @@
-Websites Acting Picky About File Types? Fight Back with the Rename File Extension on Upload extension! ✊
+# Rename File Extension on Upload
 
-You crafted the perfect code (.js, .ts), tweaked that config (.yaml, .cfg), or saved essential logs (.log), but NOOOO! The website throws a digital tantrum: "ONLY .TXT FILES ALLOWED!" 😩
+**¿Los sitios web son quisquillosos con los tipos de archivos? ¡Contraataca con la extensión "Rename File Extension on Upload"!**
 
-Don't let stubborn upload forms dictate your file life! Rename File Extension on Upload is your sneaky sidekick. It intercepts those files right before they leave your browser and whispers sweet .txt nothings into their names. ✨ Poof! ✨ The website is none the wiser, and your upload sails through.
+## ¿Qué hace esta extensión?
 
-How the Magic Happens:
+Esta extensión monitorea los eventos de selección de archivos en los sitios web que configures. Cuando seleccionas un archivo para subir, verifica si la extensión del archivo coincide con tu lista predefinida y crea una versión con una nueva extensión personalizada antes de que el navegador procese la carga, sin alterar tu archivo original.
 
-You Make the Hit List: Head to Options and tell the Renamer which pesky extensions need a .txt disguise (no dots needed!).
+## Características principales
 
-Grant Site Access: Visit the picky website, click the Renamer's icon, and hit "Enable on This Site". You're the boss – it only works where you say so!
+- **Mapeo de extensiones personalizado**: Define qué extensiones quieres transformar y en qué se convertirán (por ejemplo, cambiar `.ejs` a `.ejs.html`)
+- **Control por sitio**: La extensión solo funciona en los sitios web donde tú lo habilites explícitamente
+- **Modo "Rename ALL"**: Una opción para cambiar cualquier archivo a una extensión predeterminada
+- **Gestión de permisos**: Fácil visualización y revocación de acceso para sitios en la página de Opciones
 
-Upload Like Normal: Select your .ts, .log, or other text-based file.
+## Cómo funciona la magia
 
-Instant Makeover: The Renamer swaps the extension to .txt in a flash, locally in your browser. Your original file is untouched!
+1. **Crea tu lista de mapeo**: Dirígete a Opciones y dile al Renamer qué extensiones necesitan ser transformadas y en qué se convertirán (en formato `origen:destino`)
+2. **Concede acceso al sitio**: Visita el sitio web quisquilloso, haz clic en el icono del Renamer y pulsa "Enable on This Site". Tú mandas - ¡solo funciona donde tú digas!
+3. **Sube archivos normalmente**: Selecciona tu archivo .ts, .log u otro archivo basado en texto.
+4. **Cambio instantáneo**: El Renamer cambia la extensión según tu configuración en un instante, localmente en tu navegador. ¡Tu archivo original no se toca!
 
-Awesome Perks:
+## Guía de instalación manual
 
-✅ You Control the List: Rename only the extensions that annoy you.
+Esta guía asume que tienes el código de la extensión extraído en una carpeta en tu computadora.
 
-🔒 Site-Specific Action: Enable the magic only on the websites you choose via the popup.
+### 1. Instalar la extensión desempaquetada
 
-🚀 "Rename EVERYTHING" Mode: Feeling bold? A toggle lets you slap a .txt ending on any file you upload (use with gusto, or caution!).
+- Abre Google Chrome
+- Navega a la página de Extensiones escribiendo `chrome://extensions` en tu barra de direcciones y presionando Enter
+- Habilita el Modo Desarrollador: En la esquina superior derecha de la página de Extensiones, encuentra el interruptor "Modo desarrollador" y asegúrate de que esté ACTIVADO
+- Carga la extensión:
+  - Haz clic en el botón "Cargar descomprimida" que aparece (generalmente en la parte superior izquierda)
+  - Se abrirá un diálogo de navegación de archivos. Navega hasta y selecciona la CARPETA que contiene los archivos de tu extensión (la que tiene `manifest.json`, `content.js`, `popup.html`, `options.html`, etc.). NO selecciones un archivo individual. Haz clic en "Seleccionar carpeta"
+- Confirma la instalación: La extensión ("Rename File Extension on Upload") debería aparecer ahora en tu lista de extensiones. También deberías ver su icono en la barra de herramientas de Chrome (es posible que necesites hacer clic en el icono de rompecabezas 🧩 para encontrarlo y fijarlo). Si ves errores aquí, verifica tu `manifest.json`
 
-👀 Manage Permissions: Easily see and revoke access for sites in the Options page.
+### 2. Configurar ajustes iniciales
 
+- Abre Opciones: Haz clic derecho en el icono de la extensión en tu barra de herramientas y selecciona "Opciones". Esto abrirá la página `options.html` en una nueva pestaña
+- Configura el mapeo de extensiones: En el cuadro de texto, ingresa las extensiones de origen y destino en formato `origen:destino`, una por línea (por ejemplo, `ts:txt`, `js:txt`, `ejs:ejs.html`)
+- Configura la "Extensión predeterminada": Ingresa la extensión que se usará con el modo "Rename ALL"
+- Configura "Rename ALL" (Opcional): Si quieres que la extensión renombre cualquier archivo que procese a la extensión predeterminada (ignorando la lista anterior), marca la casilla junto a "Rename ALL selected files"
+- Revisa la lista de sitios habilitados: Observa la sección "Sites Enabled via Popup". Estará vacía inicialmente
+- Guarda: Haz clic en el botón "Save Settings"
 
-![image](https://github.com/user-attachments/assets/6ba2ee65-5085-4f25-9cb7-203f18354011)
+### 3. Habilitar en un sitio web objetivo
 
+- Navega: Ve al sitio web donde quieres probar el cambio de nombre de archivo (por ejemplo, `https://aistudio.google.com`)
+- Haz clic en el icono: Haz clic en el icono de la extensión en la barra de herramientas de Chrome
+- Verifica el popup: Debería aparecer una pequeña ventana emergente. Probablemente mostrará: ❌ Disabled on: aistudio.google.com
+- Habilita: Haz clic en el botón verde "Enable on This Site" dentro del popup
+- Concede permiso: Chrome probablemente mostrará un mensaje de permiso preguntando si quieres permitir que la extensión "Lea y cambie tus datos en aistudio.google.com". Haz clic en "Permitir"
+- Verifica el popup: El popup debería actualizarse y ahora mostrar: ✅ Enabled on: aistudio.google.com. El botón "Disable on This Site" ahora debería ser visible
 
-Okay, here's a manual "How to Use" guide specifically for until its accepted to the Chrome Extension Store:
+### 4. Usando la extensión
 
-**How to Install and Use Manually**
+- Permanece en el sitio habilitado: Asegúrate de estar todavía en el sitio donde acabas de habilitar la extensión (por ejemplo, `aistudio.google.com`)
+- Inicia la carga: Usa el mecanismo normal de carga de archivos del sitio web (haz clic en un botón "Subir archivo", arrastra y suelta, etc.)
+- Selecciona archivo: Elige un archivo cuya extensión hayas añadido en las opciones (por ejemplo, `mycode.ts`) O cualquier archivo si marcaste "Rename ALL"
+- Observa:
+  - El archivo debería ser aceptado por el sitio web como si tuviera la extensión configurada
+  - Comprueba la interfaz del sitio web – si muestra el nombre del archivo después de la selección, debería mostrar la versión con la nueva extensión
 
-This guide assumes you have the extension code extracted in a folder on your computer.
+### 5. Verificar y solucionar problemas (si es necesario)
 
-**1. Install the Unpacked Extension:**
-
-*   Open Google Chrome.
-*   Navigate to the Extensions page by typing `chrome://extensions` in your address bar and pressing Enter.
-*   **Enable Developer Mode:** In the top-right corner of the Extensions page, find the "Developer mode" toggle switch and make sure it's turned ON.
-*   **Load the Extension:**
-    *   Click the **"Load unpacked"** button that appears (usually top-left).
-    *   A file browser dialog will open. Navigate to and select the **FOLDER** that contains your extension's files (the one with `manifest.json`, `content.js`, `popup.html`, `options.html`, etc.). **Do NOT select an individual file.** Click "Select Folder".
-*   **Confirm Installation:** The extension ("Rename File Extension on Upload") should now appear in your list of extensions. You should also see its icon in your Chrome toolbar (you might need to click the puzzle piece icon 🧩 to find and pin it). If you see errors here, double-check your `manifest.json`.
-
-**2. Configure Initial Settings:**
-
-*   **Open Options:** Right-click the extension's icon in your toolbar and select **"Options"**. This will open the `options.html` page in a new tab.
-*   **Set Extensions to Rename:** In the first text box, enter the file extensions (without the leading dot) that you want the extension to change to `.txt`. You can separate them with commas (e.g., `ts, js, css, log`) or put each on a new line. Leave this empty if you only plan to use the "Rename ALL" feature.
-*   **Set "Rename ALL" (Optional):** If you want the extension to rename *any* file it processes to `.txt` (ignoring the list above), check the box next to "Rename ALL selected files to .txt".
-*   **Review Enabled Sites List:** Notice the section "Sites Enabled via Popup". This will be empty initially.
-*   **Save:** Click the **"Save Settings"** button.
-
-**3. Enable on a Target Website:**
-
-*   **Navigate:** Go to the website where you want to test the file renaming (e.g. `https://aistudio.google.com`).
-*   **Click Icon:** Click the extension's icon in the Chrome toolbar.
-*   **Check Popup:** A small popup window should appear. It will likely show:
-    `❌ Disabled on: aistudio.google.com`
-    
-![image](https://github.com/user-attachments/assets/0809af30-f516-4efe-a709-5eaa758b0efd)
-
-
-*   **Enable:** Click the green **"Enable on This Site"** button within the popup.
-*   **Grant Permission:** Chrome will likely show a permission prompt asking if you want to allow the extension to "Read and change your data on aistudio.google.com". Click **"Allow"**.
-
-![image](https://github.com/user-attachments/assets/7e67453f-7265-4292-a850-d1dee4227a4b)
-
-*   **Verify Popup:** The popup should refresh and now show:
-    `✅ Enabled on: aistudio.google.com`
-    The "Disable on This Site" button should now be visible.
-
-![image](https://github.com/user-attachments/assets/257e499a-c7f3-4126-8192-99006bd7ba26)
-
-
-**4. Using the extension:**
-
-*   **Stay on the Enabled Site:** Make sure you are still on the site where you just enabled the extension (e.g., `aistudio.google.com`).
-*   **Initiate Upload:** Use the website's normal file upload mechanism (click an "Upload File" button, drag-and-drop, etc.).
-*   **Select File:** Choose a file whose extension you added in the options (e.g., `mycode.ts`) OR any file if you checked "Rename ALL".
-*   **Observe:**
-    *   The file *should* be accepted by the website as if it were a `.txt` file.
-    *   Check the website's UI – if it displays the filename after selection, it should show the `.txt` version (e.g., `mycode.txt`).
- 
-![image](https://github.com/user-attachments/assets/531f3cea-a6af-46d7-ac4a-c11fc587287f)
-
-
-**5. Verify and Troubleshoot (If Needed):**
-
-*   **Check Options Page:** Refresh the extension's Options tab. The website you enabled (e.g. `aistudio.google.com`) should now appear in the "Sites Enabled via Popup" list.
-*   **Check Console:** If the renaming didn't work:
-    *   On the `aistudio.google.com` page, press F12 to open Developer Tools and go to the "Console" tab.
-    *   Look for any messages starting with `[RenameExt]`. You should see logs confirming the config loaded and, crucially, a log like `[RenameExt] ✅ Renaming "mycode.ts" to "mycode.txt"` if it worked.
-    *   Look for any red error messages (`❌`).
-*   **Re-check Settings:** Ensure the extensions are listed correctly in the options (no dots) and that you saved the settings.
-*   **Reload Everything:** If things seem stuck, try removing the extension (`chrome://extensions`), reloading it ("Load unpacked"), hard-refreshing the target page (Ctrl+Shift+R), and re-enabling via the popup.
-
-Repeat steps 3 and 4 for any other websites you need to use the extension on.
+- Verifica la página de opciones: Actualiza la pestaña de Opciones de la extensión. El sitio web que habilitaste debería aparecer ahora en la lista "Sites Enabled via Popup"
+- Verifica la consola: Si el cambio de nombre no funcionó:
+  - En la página donde estás probando, presiona F12 para abrir las Herramientas de Desarrollador y ve a la pestaña "Consola"
+  - Busca mensajes que comiencen con `[RenameExt]`. Deberías ver registros confirmando que la configuración se cargó y, crucialmente, un registro como `[RenameExt] ✅ Renaming "mycode.ts" to "mycode.ejs.html"` si funcionó
+  - Busca mensajes de error en rojo (❌)
+- Verifica la configuración: Asegúrate de que el mapeo de extensiones esté configurado correctamente y que hayas guardado la configuración
+- Recarga todo: Si las cosas parecen estancadas, intenta eliminar la extensión (`chrome://extensions`), recargarla ("Cargar descomprimida"), actualizar forzosamente la página objetivo (Ctrl+Shift+R), y volver a habilitar a través del popup

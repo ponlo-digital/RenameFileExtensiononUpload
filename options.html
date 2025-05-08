@@ -1,154 +1,138 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Rename Extension Options</title>
-    <meta charset="UTF-8">
-    <style>
-        /* Restore previous larger styles */
-        body {
-            font-family: sans-serif;
-            padding: 20px;
-            min-width: 450px;
-            font-size: 16px;
-        }
-        h1 {
-            font-size: 1.8em;
-            margin-bottom: 25px;
-        }
-        label, .section-label { /* Apply to normal labels and the new section label */
-            display: block;
-            margin-top: 20px; /* Increased spacing */
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        textarea {
-            width: 95%;
-            min-height: 70px;
-            margin-top: 5px;
-            padding: 8px;
-            border: 1px solid #ccc;
-            font-size: 1em;
-            line-height: 1.4;
-        }
-        .help-text {
-            font-size: 0.95em;
-            color: #444;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-        button#save { /* Target only save button for larger size */
-            margin-top: 30px; /* More space before save */
-            padding: 12px 18px;
-            font-size: 1.05em;
-            cursor: pointer;
-        }
-        #status {
-            margin-top: 15px;
-            color: green;
-            font-weight: bold;
-            font-size: 1em;
-        }
-        .toggle-option {
-             margin-top: 25px; /* More space */
-             border-top: 1px solid #ddd;
-             padding-top: 20px;
-        }
-         .toggle-option label {
-            display: inline-block;
-            font-weight: normal;
-            margin-left: 8px;
-            font-size: 1em;
-         }
-          .toggle-option input[type="checkbox"] {
-            vertical-align: middle;
-            width: 18px;
-            height: 18px;
-            margin-right: 2px;
-         }
-
-        /* Styles for the enabled sites list */
-        #enabledSitesSection {
-            margin-top: 25px;
-            border-top: 1px solid #ddd;
-            padding-top: 15px;
-        }
-        #enabledSitesList {
-            list-style: none;
-            padding: 0;
-            margin-top: 10px;
-            max-height: 200px; /* Limit height and add scroll */
-            overflow-y: auto;
-            border: 1px solid #eee;
-            padding: 5px;
-        }
-        .enabled-site-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 5px;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 1em;
-        }
-        .enabled-site-item:last-child {
-            border-bottom: none;
-        }
-        .site-hostname {
-            flex-grow: 1;
-            margin-right: 10px;
-            word-break: break-all; /* Prevent long names breaking layout */
-        }
-        .remove-site-btn {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.9em;
-            flex-shrink: 0; /* Prevent button shrinking */
-        }
-        .remove-site-btn:hover {
-            background-color: #d32f2f;
-        }
-        .no-sites-enabled {
-            color: #777;
-            font-style: italic;
-            padding: 10px 5px;
-        }
-    </style>
+  <title>Rename File Extension on Upload Options</title>
+  <style>
+    body {
+      padding: 15px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 14px;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+      margin-top: 0;
+    }
+    
+    h2, h3 {
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    
+    .option-section {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+    
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-family: monospace;
+    }
+    
+    button {
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    button:hover {
+      background-color: #3367d6;
+    }
+    
+    #status {
+      margin-left: 10px;
+      color: green;
+    }
+    
+    .site-item {
+      padding: 5px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .site-item button {
+      background-color: #dd4b39;
+    }
+    
+    .site-item button:hover {
+      background-color: #c23321;
+    }
+    
+    #sitesList {
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    
+    .info-box {
+      background-color: #e8f0fe;
+      border-left: 4px solid #4285f4;
+      padding: 10px 15px;
+      margin: 15px 0;
+    }
+  </style>
 </head>
 <body>
+  <h1>Rename File Extension on Upload - Options</h1>
+  
+  <div class="option-section">
+    <h3>Extension Mapping</h3>
+    <p>Enter source and target extensions in format "source:target" (one pair per line):</p>
+    <textarea id="extensionMapping" rows="6" placeholder="Example:
+js:txt
+ts:txt
+ejs:ejs.html
+log:txt"></textarea>
+  </div>
 
-    <h1>Rename Extension Options</h1>
+  <div class="option-section">
+    <h3>Default Target Extension</h3>
+    <p>Default extension to use with "Rename ALL" mode:</p>
+    <input type="text" id="defaultExtension" placeholder="txt">
+  </div>
 
-    <label for="extensions">Extensions to Rename (one per line or comma-separated, no dots):</label>
-    <textarea id="extensions" rows="4"></textarea>
-    <div class="help-text">Example: js, ts, tsx, css, log, cfg</div>
-
-    <!-- Section for Enabled Sites - Replaces the editable site list -->
-    <div id="enabledSitesSection">
-        <div class="section-label">Sites Enabled via Popup:</div>
-        <ul id="enabledSitesList">
-            <!-- Sites will be loaded here by JS -->
-             <li class="no-sites-enabled">Loading enabled sites...</li>
-        </ul>
-        <div class="help-text">
-            Permissions are granted or revoked by clicking the extension icon on the desired website.<br>
-            You can revoke permission for a site here by clicking the 'X' button.
-        </div>
+  <div class="option-section">
+    <label>
+      <input type="checkbox" id="renameAll">
+      Rename ALL selected files (using default extension above)
+    </label>
+  </div>
+  
+  <div class="option-section">
+    <h3>Sites Enabled via Popup</h3>
+    <p>The extension will only rename files on these websites:</p>
+    <div id="sitesList">
+      <div id="noSitesMessage">No sites enabled yet. Click the extension icon on any website to enable it there.</div>
     </div>
+  </div>
+  
+  <div class="info-box">
+    <p><strong>How it works:</strong> When you select a file for upload on an enabled site, this extension will automatically rename the file extension according to your mapping above.</p>
+    <p><strong>Note:</strong> This only affects what the website sees - your original files are never modified.</p>
+  </div>
+  
+  <div>
+    <button id="save">Save Settings</button>
+    <span id="status"></span>
+  </div>
 
-    <!-- Rename All Toggle -->
-    <div class="toggle-option">
-        <input type="checkbox" id="renameAllFiles">
-        <label for="renameAllFiles">Rename ALL selected files to .txt (ignores extension list above)</label>
-    </div>
-
-    <button id="save">Save Settings</button> <!-- Only saves extensions and toggle now -->
-    <div id="status"></div>
-
-    <script src="options.js"></script>
-
+  <script src="options.js"></script>
 </body>
 </html>
